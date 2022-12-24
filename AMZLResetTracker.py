@@ -1,161 +1,54 @@
+# Define a list of clusters that need to be reset
+clusters = ['A', 'B', 'C', 'D', 'E', 'G']
 
-##AMZL reset Tracker
-#developed by garbosz
+# Initialize a dictionary to track the progress of each cluster
+cluster_progress = {}
 
-##Create Vars
+# Initialize a dictionary to store the total number of aisles in each cluster
+cluster_aisles = {'A': 20, 'B': 20, 'C': 22, 'D': 22, 'E': 22, 'G': 22}
 
-##define clusters
-cluster=["A","B","C","D","E","G"]
-clusterA=20
-clusterB=20
-clusterC=22
-clusterD=22
-clusterE=22
-clusterG=22
-compA=0
-compB=0
-compC=0
-compD=0
-compE=0
-compG=0
-perA=0
-perB=0
-perC=0
-perD=0
-perE=0
-perG=0
+# Initialize a variable to store the total number of aisles
+total_aisles = sum(cluster_aisles.values())
 
-##loop through user updates
-print("Welcome to the DBO6 Reset Tracker")
-print("Developed by Garbosz")
-def main():
-    global cluster
-    global clusterA
-    global clusterB
-    global clusterC
-    global clusterD
-    global clusterE
-    global clusterG
-    global compA
-    global compB
-    global compC
-    global compD
-    global compE
-    global compG
-    global perA
-    global perB
-    global perC
-    global perD
-    global perE
-    global perG
-    choice=input("Press 'U' to update progress, press 'S' for a status update: ")
-    if choice=='u':
-        i=input("Which Cluster are you updating?(A,B,C,D,E, or G): ")
-        if i=='a':
-            compA=input("How many aisles are completed in this cluster?: ")
-            doMath()
-        elif i=='b':
-            compB=input("How many aisles are completed in this cluster?: ")
-            doMath()
-        elif i=='c':
-            cpmpC=input("How many aisles are completed in this cluster?: ")
-            doMath()
-        elif i=='d':
-            compD=input("How many aisles are completed in this cluster?: ")
-            doMath()
-        elif i=='e':
-            compE=input("How many aisles are completed in this cluster?: ")
-            doMath()
-        elif i=='g':
-            compG=input("How many aisles are completed in this cluster?: ")
-            doMath()
-        else:
-            print("Invalid Input")
-            main()
-    elif choice=='s':
-        print("status")
-        doMath()
+# Initialize the progress for each cluster to 0
+for cluster in clusters:
+  cluster_progress[cluster] = 0
 
-##Do Math
-def doMath():
-    global cluster
-    global clusterA
-    global clusterB
-    global clusterC
-    global clusterD
-    global clusterE
-    global clusterG
-    global compA
-    global compB
-    global compC
-    global compD
-    global compE
-    global compG
-    global perA
-    global perB
-    global perC
-    global perD
-    global perE
-    global perG
-    float(compA) 
-    float(clusterA)
-    float(perA)
-    float(compB) 
-    float(clusterB)
-    float(perB)
-    float(compC) 
-    float(clusterC)
-    float(perC)
-    float(compD) 
-    float(clusterD)
-    float(perD)
-    float(compE) 
-    float(clusterE)
-    float(perE)
-    float(compG) 
-    float(clusterG)
-    float(perG)
-    perA=(compA/clusterA)*100
-    perA=(compB/clusterB)*100
-    perA=(compC/clusterC)*100
-    perA=(compD/clusterD)*100
-    perA=(compE/clusterE)*100
-    perA=(compG/clusterG)*100
-    output()
-    
-##output format
-def output():
-    global cluster
-    global clusterA
-    global clusterB
-    global clusterC
-    global clusterD
-    global clusterE
-    global clusterG
-    global compA
-    global compB
-    global compC
-    global compD
-    global compE
-    global compG
-    global perA
-    global perB
-    global perC
-    global perD
-    global perE
-    global perG
-    print("Cluster A:",end=" ")
-    print(perA)
-    print("Cluster B:",end=" ")
-    print(perB)
-    print("Cluster C:",end=" ")
-    print(perC)
-    print("Cluster D:",end=" ")
-    print(perD)
-    print("Cluster E:",end=" ")
-    print(perE)
-    print("Cluster G:",end=" ")
-    print(perG)
-    main()
+# Main loop to track the progress of resetting the clusters
+while True:
+  # Print the overall status of the reset process
+  print("Overall progress:")
+  reset_aisles = 0
+  for cluster, progress in cluster_progress.items():
+    # Calculate the percentage progress for each cluster
+    cluster_percent = (progress / cluster_aisles[cluster]) * 100
+    print(f"{cluster}: {cluster_percent:.2f}% ({progress}/{cluster_aisles[cluster]} aisles)")
+    reset_aisles += progress
 
-main()
+  # Calculate the overall progress as a percentage
+  overall_progress = (reset_aisles / total_aisles) * 100
+  print(f"Overall progress: {overall_progress:.2f}%\n")
+
+  # Prompt the user to enter the name of a cluster to update
+  cluster = input("Enter the name of a cluster to update: ")
+
+  # Check if the entered cluster is in the list of clusters
+  if cluster not in clusters:
+    print("Invalid cluster name. Try again.")
+    continue
+
+  # Prompt the user to enter the number of aisles that have been reset in the selected cluster
+  aisles = input("Enter the number of aisles that have been reset in the selected cluster: ")
+
+  # Check if the entered number of aisles is a valid integer
+  if not aisles.isdigit() or int(aisles) < 0:
+    print("Invalid input. The number of aisles must be a positive integer. Try again.")
+    continue
+
+  # Update the progress for the selected cluster
+  cluster_progress[cluster] += int(aisles)
+
+  # Check if all clusters have been reset
+  if overall_progress == 100:
+    print("All clusters have been reset successfully!")
+    break
