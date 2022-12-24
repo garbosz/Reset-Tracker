@@ -17,12 +17,14 @@ for cluster in clusters:
 # Main loop to track the progress of resetting the clusters
 while True:
   # Print the overall status of the reset process
-  print("Overall progress:")
+  print("Cluster progress:")
   reset_aisles = 0
   for cluster, progress in cluster_progress.items():
     # Calculate the percentage progress for each cluster
     cluster_percent = (progress / cluster_aisles[cluster]) * 100
-    print(f"{cluster}: {cluster_percent:.2f}% ({progress}/{cluster_aisles[cluster]} aisles)")
+
+    # Display a visual representation of the progress for each cluster
+    print(f"{cluster}: {progress}/{cluster_aisles[cluster]} aisles\t ({'#' * int(cluster_percent/10)} {'_' * (10-int(cluster_percent/10))} {int(cluster_percent)}%)")
     reset_aisles += progress
 
   # Calculate the overall progress as a percentage
@@ -31,6 +33,9 @@ while True:
 
   # Prompt the user to enter the name of a cluster to update
   cluster = input("Enter the name of a cluster to update: ")
+
+  # Convert the cluster name to uppercase
+  cluster = cluster.upper()
 
   # Check if the entered cluster is in the list of clusters
   if cluster not in clusters:
@@ -46,7 +51,7 @@ while True:
     continue
 
   # Update the progress for the selected cluster
-  cluster_progress[cluster] += int(aisles)
+  cluster_progress[cluster] = int(aisles)
 
   # Check if all clusters have been reset
   if overall_progress == 100:
