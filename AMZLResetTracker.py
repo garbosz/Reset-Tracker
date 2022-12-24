@@ -5,7 +5,7 @@ clusters = ['A', 'B', 'C', 'D', 'E', 'G']
 cluster_progress = {}
 
 # Initialize a dictionary to store the total number of aisles in each cluster
-cluster_aisles = {'A': 20, 'B': 20, 'C': 22, 'D': 22, 'E': 22, 'G': 22}
+cluster_aisles = {'A': 20, 'B': 20, 'C': 22, 'D': 22, 'E': 20, 'G': 20}
 
 # Initialize a variable to store the total number of aisles
 total_aisles = sum(cluster_aisles.values())
