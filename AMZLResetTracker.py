@@ -18,7 +18,7 @@ for cluster in clusters:
 # Main loop to track the progress of resetting the clusters
 while True:
   # Print the overall status of the reset process
-  print("Cluster progress @"+time.asctime()+": ")
+  print("Cluster Reset Progress @"+time.asctime()+": ")
   reset_aisles = 0
   for cluster, progress in cluster_progress.items():
     # Calculate the percentage progress for each cluster
